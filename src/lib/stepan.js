@@ -1,3 +1,10 @@
+class StepanError extends Error{
+  constructor(message) {
+    super(message)
+    this.name = 'StepanError'
+    this.message = message
+  }
+}
 
 export default class Stepan {
   static createElement(element, parent, attributes = {}) {
@@ -27,10 +34,17 @@ export default class Stepan {
 
       // TODO: 1. Create StepanError class to define all framework errors
       //       2. throw an error if parent is null or undefined, or if it's not a valid DOM object
-
+      if(parent == undefined){
+        throw new StepanError('Parent is undefined!')
+      }else if(parent == null){
+        throw new StepanError('Parent is null!')
+      }else if(!(parent instanceof Element || parent instanceof HTMLDocument)){
+        throw new StepanError('Parent is not DOM object!')
+      }
       this.parent = parent;
     }
 
     // TODO (Bonus): Ensure that every component returns a top-level root element
   }
 }
+
